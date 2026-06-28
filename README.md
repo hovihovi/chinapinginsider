@@ -14,7 +14,7 @@ Chinese table tennis news, translated and analysed.
 
 ```
 chinapinginsider/
-├── website/          # Static site
+├── docs/          # Static site
 │   ├── index.html    # Homepage
 │   ├── about.html    # About page
 │   ├── css/style.css # Styles
