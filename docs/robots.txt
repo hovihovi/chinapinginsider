@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /articles/
+Allow: /css/
+Allow: /js/
+Disallow: /assets/
+
+Sitemap: https://chinapinginsider.com/sitemap.xml
