@@ -1,4 +1,4 @@
-# 🏓🐧 China Pinginsider
+# 🏓 China Pinginsider
 
 Chinese table tennis news, translated and analysed.
 
@@ -18,19 +18,14 @@ chinapinginsider/
 │   ├── index.html    # Homepage
 │   ├── about.html    # About page
 │   ├── css/style.css # Styles
-│   └── articles/     # Translated articles (EN/FR/XHS)
-├── scrapers/         # Python scraper pipeline
-│   ├── sina.py       # Sina Sports scraper
-│   ├── tencent.py    # Tencent News scraper
-│   ├── correlator.py # Deduplication engine
-│   └── orchestrator.py # Pipeline runner
+│   └── articles/     # Translated articles (EN/FR)
 └── serve.sh          # Local preview server
 ```
 
 ## Workflow
 
-1. Scrape Chinese sources → raw JSON in `inbox/`
+1. Identify noteworthy stories from Chinese media
 2. Analyse with DeepSeek Flash → article drafts
-3. Build article HTML (EN/FR/XHS)
-4. Hovi validates locally
+3. Build article HTML (EN/FR)
+4. Validate locally
 5. Push to GitHub
