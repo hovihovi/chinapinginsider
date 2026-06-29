@@ -1,5 +1,41 @@
 {
   "description": "Article queue for China Pinginsider review pipeline",
-  "drafts": [],
+  "drafts": [
+    {
+      "id": "20260629-001",
+      "status": "approved",
+      "title_en": "Zhang Jike Returns in Revolutionary \"100-Point Battle\"",
+      "title_fr": "Le retour de Zhang Jike : la « Bataille des 100 points »",
+      "slug": "zhangjike-us-smash-2026",
+      "tag": "News",
+      "date": "2026-06-29",
+      "sources": [
+        "Tokspin",
+        "Tencent News",
+        "Sina Sports",
+        "NetEase 163"
+      ],
+      "discord_message_id": null,
+      "created_at": "2026-06-29T08:12:27.936647",
+      "approved_at": "2026-06-29T13:01:00"
+    },
+    {
+      "id": "20260629-002",
+      "status": "approved",
+      "title_en": "WTT US Smash 2026: Olympic Test Event Kicks Off in Los Angeles",
+      "title_fr": "WTT US Smash 2026 : le test olympique commence à Los Angeles",
+      "slug": "wtt-us-smash-2026-la",
+      "tag": "News",
+      "date": "2026-06-29",
+      "sources": [
+        "Olympics.com",
+        "Tencent News",
+        "WTT"
+      ],
+      "discord_message_id": null,
+      "created_at": "2026-06-29T08:12:27.936647",
+      "approved_at": "2026-06-29T13:01:00"
+    }
+  ],
   "published": []
 }
