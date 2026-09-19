@@ -45,7 +45,7 @@
   </section>
   {{ end }}
 
-  <div class="article-read">
+  <div class="article-top">
     {{ partial "media.html" (dict "page" . "mode" "article") }}
 
     {{ with .Params.keyPoints }}
@@ -56,7 +56,9 @@
       </ul>
     </aside>
     {{ end }}
+  </div>
 
+  <div class="article-read">
     <div class="prose">
       {{ .Content }}
     </div>
