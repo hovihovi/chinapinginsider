@@ -264,7 +264,13 @@ class TestBuildContracts:
             assert 65 <= int(m.group(1)) <= 72, (selector, m.group(1))
 
     def test_motif_assets_are_shipped(self):
-        for name in ["motif-tournaments.svg", "motif-players.svg", "motif-gear.svg", "motif-culture.svg", "logo.svg"]:
+        for name in [
+            "section-tournaments.webp",
+            "section-players.webp",
+            "section-gear.webp",
+            "section-culture.webp",
+            "logo.svg",
+        ]:
             assert (build_dir() / "img" / "design" / name).exists(), name
 
 

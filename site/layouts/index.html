@@ -29,7 +29,7 @@
       <p class="feature-dek">{{ i18n "homeSubLead" }}</p>
     </div>
     <div class="feature-media" aria-hidden="true">
-      <img src="{{ partial "motif.html" "tournaments" }}" alt="" width="640" height="400">
+      <img src="{{ partial "motif.html" "tournaments" }}" alt="" width="1200" height="675">
     </div>
   </div>
   {{ end }}
@@ -71,7 +71,7 @@
       {{ $items := first 4 (where site.RegularPages "Section" $id).ByDate.Reverse }}
       <a class="tile{{ if not $items }} tile--empty{{ end }}" id="{{ $id }}" href="{{ (printf "/%s/%s/" $lang $id) | relURL }}">
         <span class="tile-media" aria-hidden="true">
-          <img src="{{ partial "motif.html" $id }}" alt="" width="640" height="400" loading="lazy" decoding="async">
+          <img src="{{ partial "motif.html" $id }}" alt="" width="1200" height="675" loading="lazy" decoding="async">
         </span>
         <span class="tile-label">{{ $label }}</span>
         <span class="tile-count">{{ if $items }}{{ i18n "articlesCount" (len $items) }}{{ else }}{{ i18n "emptySectionNote" }}{{ end }}</span>

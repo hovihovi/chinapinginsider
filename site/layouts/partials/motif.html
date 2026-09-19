@@ -1,8 +1,8 @@
 {{- $id := . -}}
-{{- $files := dict
-  "tournaments" "motif-tournaments.svg"
-  "players" "motif-players.svg"
-  "gear" "motif-gear.svg"
-  "culture" "motif-culture.svg" -}}
-{{- $file := index $files $id | default "motif-tournaments.svg" -}}
+{{- $plates := dict
+  "tournaments" "section-tournaments.webp"
+  "players" "section-players.webp"
+  "gear" "section-gear.webp"
+  "culture" "section-culture.webp" -}}
+{{- $file := index $plates $id | default "section-tournaments.webp" -}}
 {{- return (relURL (printf "img/design/%s" $file)) -}}
