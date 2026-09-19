@@ -1,0 +1,15 @@
+{{ $label := partial "section-label.html" . }}
+<article class="card">
+  <a class="card-media" href="{{ .RelPermalink }}" tabindex="-1" aria-hidden="true">
+    {{ partial "media.html" (dict "page" . "mode" "card") }}
+  </a>
+  <div class="card-body">
+    <p class="card-meta">
+      <span class="card-section">{{ $label }}</span>
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time>
+    </p>
+    <h3 class="card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    {{ with .Params.dek }}<p class="card-dek">{{ . }}</p>{{ end }}
+    <a class="card-more" href="{{ .RelPermalink }}">{{ i18n "readMore" }}</a>
+  </div>
+</article>

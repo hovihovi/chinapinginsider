@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+{{ partial "head.html" . }}
+<body class="{{ if .IsHome }}is-home{{ else if .IsPage }}is-page{{ else }}is-list{{ end }}">
+  <a class="skip-link" href="#main">{{ i18n "skipToContent" }}</a>
+  {{ partial "header.html" . }}
+  <main id="main" class="shell main">
+    {{ block "main" . }}{{ end }}
+  </main>
+  {{ partial "footer.html" . }}
+</body>
+</html>

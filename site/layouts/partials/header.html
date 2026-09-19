@@ -1,0 +1,38 @@
+{{ $page := . }}
+{{ $current := .Site.Language.Lang }}
+<header class="masthead">
+  <div class="shell masthead-top">
+    <a class="brand" href="{{ .Site.Home.RelPermalink }}">
+      {{ partial "logo.html" . }}
+      <span class="brand-text">
+        <span class="brand-name">{{ .Site.Title }}</span>
+        <span class="brand-tag">{{ i18n "tagline" }}</span>
+      </span>
+    </a>
+    <nav class="lang-switch" aria-label="{{ i18n "languageLabel" }}">
+      {{ range hugo.Sites }}
+        {{ $target := .Language.Lang }}
+        {{ $href := relURL (printf "/%s/" $target) }}
+        {{ range $page.Translations }}
+          {{ if eq .Language.Lang $target }}{{ $href = .RelPermalink }}{{ end }}
+        {{ end }}
+        <a class="lang-option{{ if eq $target $current }} is-current{{ end }}"
+           href="{{ $href }}"
+           hreflang="{{ $target }}"
+           {{ if eq $target $current }}aria-current="true"{{ end }}>{{ .Language.Label }}</a>
+      {{ end }}
+    </nav>
+  </div>
+  <nav class="section-nav" aria-label="{{ i18n "mainNav" }}">
+    <div class="shell section-nav-inner">
+      {{ range hugo.Data.sections }}
+        {{ $active := and (ne $page.Section "") (eq $page.Section .id) }}
+        <a class="section-link{{ if $active }} is-current{{ end }}"
+           href="{{ (printf "/%s/%s/" $current .id) | relURL }}"
+           {{ if $active }}aria-current="page"{{ end }}>
+          {{ if eq $current "fr" }}{{ .label_fr }}{{ else }}{{ .label_en }}{{ end }}
+        </a>
+      {{ end }}
+    </div>
+  </nav>
+</header>

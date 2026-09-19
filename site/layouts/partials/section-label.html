@@ -1,0 +1,7 @@
+{{- $page := . -}}
+{{- $spec := index (where hugo.Data.sections "id" $page.Section) 0 -}}
+{{- if $spec -}}
+  {{- if eq site.Language.Lang "fr" -}}{{ return $spec.label_fr }}{{- else -}}{{ return $spec.label_en }}{{- end -}}
+{{- else -}}
+  {{- return $page.Section -}}
+{{- end -}}

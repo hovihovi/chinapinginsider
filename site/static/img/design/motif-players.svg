@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400" role="img" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="pbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E3255"/>
+      <stop offset="100%" stop-color="#071B31"/>
+    </linearGradient>
+    <linearGradient id="prubber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0A45C"/>
+      <stop offset="100%" stop-color="#C68B4E"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="400" fill="url(#pbg)"/>
+  <circle cx="320" cy="196" r="150" fill="none" stroke="#F6F1E7" stroke-width="1.2" opacity="0.12"/>
+  <g transform="translate(250 200) rotate(-18)">
+    <ellipse cx="0" cy="0" rx="92" ry="104" fill="url(#prubber)"/>
+    <ellipse cx="0" cy="0" rx="92" ry="104" fill="none" stroke="#F6F1E7" stroke-width="3" opacity="0.85"/>
+    <ellipse cx="0" cy="0" rx="58" ry="66" fill="#0A2540" opacity="0.35"/>
+    <rect x="-14" y="96" width="28" height="96" rx="12" fill="#C0A98A"/>
+    <rect x="-14" y="96" width="28" height="96" rx="12" fill="none" stroke="#8A5C2C" stroke-width="3"/>
+  </g>
+  <circle cx="438" cy="120" r="30" fill="#F6F1E7"/>
+  <circle cx="429" cy="111" r="9" fill="#ffffff"/>
+  <path d="M300 60 C 380 30, 470 60, 520 150" fill="none" stroke="#E0A45C" stroke-width="2" stroke-dasharray="3 12" opacity="0.7"/>
+</svg>

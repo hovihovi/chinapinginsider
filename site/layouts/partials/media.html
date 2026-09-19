@@ -1,0 +1,25 @@
+{{- $page := .page -}}
+{{- $mode := .mode | default "card" -}}
+{{- $img := $page.Params.image -}}
+{{- $alt := $page.Params.imageAlt | default $page.Title -}}
+{{- $isMascot := false -}}
+{{- if $img -}}
+  {{- if or (in $img "penguin") (in $img "mascots/") -}}
+    {{- $isMascot = true -}}
+  {{- end -}}
+{{- end -}}
+{{- if and $img (not $isMascot) -}}
+<figure class="media media--photo">
+  <img src="{{ $img | relURL }}" alt="{{ $alt }}" loading="{{ if eq $mode "hero" }}eager{{ else }}lazy{{ end }}" decoding="async">
+  {{- with $page.Params.imageCaption }}<figcaption>{{ . }}</figcaption>{{ end -}}
+</figure>
+{{- else if and $img $isMascot (eq $mode "article") -}}
+<figure class="media media--plate">
+  <img src="{{ $img | relURL }}" alt="{{ $alt }}" loading="lazy" decoding="async">
+  {{- with $page.Params.imageCaption }}<figcaption>{{ . }}</figcaption>{{ end -}}
+</figure>
+{{- else -}}
+<div class="media media--motif" aria-hidden="true">
+  <img src="{{ partial "motif.html" $page.Section }}" alt="" loading="lazy" decoding="async" width="640" height="400">
+</div>
+{{- end -}}

@@ -1,0 +1,12 @@
+{{- $page := . -}}
+{{- $related := first 3 (where (where site.RegularPages "Section" $page.Section) "RelPermalink" "ne" $page.RelPermalink) -}}
+{{- with $related -}}
+<section class="related" aria-labelledby="related-title">
+  <div class="related-head">
+    <h2 id="related-title">{{ i18n "related" }}</h2>
+  </div>
+  <div class="cards">
+    {{ range . }}{{ partial "card.html" . }}{{ end }}
+  </div>
+</section>
+{{- end -}}

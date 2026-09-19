@@ -1,0 +1,87 @@
+{{ define "main" }}
+{{ $lang := site.Language.Lang }}
+{{ $label := partial "section-label.html" . }}
+<article class="article">
+  <nav class="crumbs" aria-label="{{ i18n "breadcrumb" }}">
+    <ol>
+      <li><a href="{{ site.Home.RelPermalink }}">{{ i18n "home" }}</a></li>
+      <li><a href="{{ (printf "/%s/%s/" $lang .Section) | relURL }}">{{ $label }}</a></li>
+      <li aria-current="page">{{ .Title }}</li>
+    </ol>
+  </nav>
+
+  <header class="article-head">
+    <p class="kicker">
+      <span class="kicker-section">{{ $label }}</span>
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time>
+    </p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.dek }}<p class="dek">{{ . }}</p>{{ end }}
+    <p class="byline">
+      {{ with .Params.author }}<span>{{ i18n "bylineBy" }} {{ . }}</span>{{ end }}
+      {{ with .Params.tags }}
+      <span class="tags">
+        {{ range . }}<a class="tag" href="{{ (printf "/%s/tags/%s/" $lang (urlize .)) | relURL }}">{{ . }}</a>{{ end }}
+      </span>
+      {{ end }}
+    </p>
+  </header>
+
+  {{ with .Params.match }}
+  <section class="headtohead" aria-label="{{ i18n "headToHead" }}">
+    <div class="h2h-player">
+      <img src="{{ (printf "/img/mascots/%s.png" .player_a) | relURL }}" alt="" loading="lazy">
+      <strong>{{ .name_a }}</strong>
+    </div>
+    <div class="h2h-centre">
+      <span class="h2h-label">{{ i18n "headToHead" }}</span>
+      {{ with .score }}<span class="h2h-score">{{ . }}</span>{{ end }}
+      {{ with .event }}<span class="h2h-event">{{ . }}</span>{{ end }}
+    </div>
+    <div class="h2h-player">
+      <img src="{{ (printf "/img/mascots/%s.png" .player_b) | relURL }}" alt="" loading="lazy">
+      <strong>{{ .name_b }}</strong>
+    </div>
+  </section>
+  {{ end }}
+
+  <div class="article-read">
+    {{ partial "media.html" (dict "page" . "mode" "article") }}
+
+    {{ with .Params.keyPoints }}
+    <aside class="keypoints">
+      <h2>{{ i18n "keyPoints" }}</h2>
+      <ul>
+        {{ range . }}<li>{{ . }}</li>{{ end }}
+      </ul>
+    </aside>
+    {{ end }}
+
+    <div class="prose">
+      {{ .Content }}
+    </div>
+  </div>
+
+  {{ with .Params.sources }}
+  <section class="sources">
+    <h2>{{ i18n "sources" }}</h2>
+    <ol>
+      {{ range . }}
+      <li>
+        <span class="source-body">
+          <a href="{{ .url }}" rel="nofollow noopener" target="_blank">{{ .headline }}</a>
+          <span class="muted">{{ .publisher }}{{ with .date }} &middot; {{ . }}{{ end }}</span>
+        </span>
+      </li>
+      {{ end }}
+    </ol>
+  </section>
+  {{ end }}
+
+  {{ partial "related.html" . }}
+
+  {{ with .Translations }}
+  <p class="other-lang"><a href="{{ (index . 0).RelPermalink }}">{{ i18n "alsoIn" }}</a></p>
+  {{ end }}
+</article>
+{{ end }}

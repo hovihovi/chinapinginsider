@@ -1,0 +1,20 @@
+{{ $current := .Site.Language.Lang }}
+{{ $page := . }}
+<footer class="site-foot">
+  <div class="shell foot-inner">
+    <div class="foot-brand-block">
+      <div class="foot-brand">
+        {{ partial "logo.html" . }}
+        <span class="brand-name">{{ .Site.Title }}</span>
+      </div>
+      <p class="foot-note">{{ i18n "footnote" }}</p>
+      <p class="foot-desc">{{ i18n "homeDescription" }}</p>
+    </div>
+    <nav class="foot-nav" aria-label="{{ i18n "mainNav" }}">
+      {{ range hugo.Data.sections }}
+        <a href="{{ (printf "/%s/%s/" $current .id) | relURL }}">{{ if eq $current "fr" }}{{ .label_fr }}{{ else }}{{ .label_en }}{{ end }}</a>
+      {{ end }}
+    </nav>
+    <p class="foot-legal">&copy; {{ now.Year }} {{ .Site.Title }}</p>
+  </div>
+</footer>

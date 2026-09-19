@@ -1,0 +1,62 @@
+{{ define "main" }}
+{{ $lang := site.Language.Lang }}
+{{ $spec := index (where hugo.Data.sections "id" .Section) 0 }}
+
+{{ with .Data.Terms }}
+{{ $taxTitle := i18n "tagsTitle" }}
+{{ if eq $.Data.Plural "categories" }}{{ $taxTitle = i18n "categoriesTitle" }}{{ end }}
+<header class="section-hero">
+  <p class="kicker"><span class="kicker-section">{{ i18n "taxonomyLabel" }}</span></p>
+  <h1>{{ $taxTitle }}</h1>
+</header>
+<ul class="term-list">
+  {{ range .Alphabetical }}
+  <li>
+    <a href="{{ .Page.RelPermalink }}">
+      <span class="term-name">{{ .Page.Title }}</span>
+      <span class="term-count">{{ i18n "articlesCount" .Count }}</span>
+    </a>
+  </li>
+  {{ end }}
+</ul>
+{{ else }}{{ with .Data.Term }}
+<header class="section-hero">
+  <p class="kicker"><span class="kicker-section">{{ i18n "taxonomyLabel" }}</span></p>
+  <h1>{{ $.Title }}</h1>
+  <p class="rhythm"><span>{{ i18n "inSection" }}</span> {{ i18n "articlesCount" (len $.Pages) }}</p>
+</header>
+<section class="cards">
+  {{ range $.Pages.ByDate.Reverse }}
+    {{ partial "card.html" . }}
+  {{ else }}
+    <p class="empty-state">{{ i18n "nothingHere" }}</p>
+  {{ end }}
+</section>
+{{ else }}{{ if $spec }}
+<header class="section-hero">
+  <p class="kicker"><span class="kicker-section">{{ if eq $lang "fr" }}{{ $spec.label_fr }}{{ else }}{{ $spec.label_en }}{{ end }}</span></p>
+  <h1>{{ if eq $lang "fr" }}{{ $spec.label_fr }}{{ else }}{{ $spec.label_en }}{{ end }}</h1>
+  <p class="lede">{{ if eq $lang "fr" }}{{ $spec.brief_fr }}{{ else }}{{ $spec.brief_en }}{{ end }}</p>
+  <p class="rhythm"><span>{{ i18n "rhythmLabel" }}</span> {{ if eq $lang "fr" }}{{ $spec.rhythm_fr }}{{ else }}{{ $spec.rhythm_en }}{{ end }}</p>
+</header>
+<section class="cards">
+  {{ range .Pages.ByDate.Reverse }}
+    {{ partial "card.html" . }}
+  {{ else }}
+    <p class="empty-state">{{ i18n "nothingHere" }} {{ i18n "emptySectionNote" }}.</p>
+  {{ end }}
+</section>
+{{ else }}
+<header class="section-hero">
+  <p class="kicker"><span class="kicker-section">{{ i18n "mainNav" }}</span></p>
+  <h1>{{ .Title }}</h1>
+</header>
+<section class="cards">
+  {{ range .Pages.ByDate.Reverse }}
+    {{ partial "card.html" . }}
+  {{ else }}
+    <p class="empty-state">{{ i18n "nothingHere" }}</p>
+  {{ end }}
+</section>
+{{ end }}{{ end }}{{ end }}
+{{ end }}

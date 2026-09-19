@@ -1,0 +1,95 @@
+{{ define "main" }}
+{{ $lang := site.Language.Lang }}
+{{ $pages := site.RegularPages.ByDate.Reverse }}
+{{ $lead := index $pages 0 }}
+{{ $second := "" }}
+{{ if gt (len $pages) 1 }}{{ $second = index $pages 1 }}{{ end }}
+
+<section class="home-lead">
+  {{ if $lead }}
+  <article class="feature" aria-labelledby="lead-title">
+    <div class="feature-body">
+      <p class="kicker">
+        <span class="kicker-section">{{ partial "section-label.html" $lead }}</span>
+        <time datetime="{{ $lead.Date.Format "2006-01-02" }}">{{ $lead.Date | time.Format ":date_long" }}</time>
+      </p>
+      <h1 id="lead-title" class="feature-title"><a href="{{ $lead.RelPermalink }}">{{ $lead.Title }}</a></h1>
+      {{ with $lead.Params.dek }}<p class="feature-dek">{{ . }}</p>{{ end }}
+      <a class="cta" href="{{ $lead.RelPermalink }}">{{ i18n "readStory" }} <span class="arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="feature-media">
+      {{ partial "media.html" (dict "page" $lead "mode" "hero") }}
+    </div>
+  </article>
+  {{ else }}
+  <div class="feature feature--empty">
+    <div class="feature-body">
+      <p class="kicker"><span class="kicker-section">{{ i18n "deskLabel" }}</span></p>
+      <h1 id="lead-title" class="feature-title">{{ i18n "tagline" }}</h1>
+      <p class="feature-dek">{{ i18n "homeSubLead" }}</p>
+    </div>
+    <div class="feature-media" aria-hidden="true">
+      <img src="{{ partial "motif.html" "tournaments" }}" alt="" width="640" height="400">
+    </div>
+  </div>
+  {{ end }}
+
+  <aside class="rail" aria-label="{{ i18n "alsoFeatured" }}">
+    {{ if $second }}
+    <article class="rail-story">
+      <a class="rail-media" href="{{ $second.RelPermalink }}" tabindex="-1" aria-hidden="true">
+        {{ partial "media.html" (dict "page" $second "mode" "card") }}
+      </a>
+      <div class="rail-body">
+        <p class="kicker">
+          <span class="kicker-section">{{ partial "section-label.html" $second }}</span>
+          <time datetime="{{ $second.Date.Format "2006-01-02" }}">{{ $second.Date | time.Format ":date_long" }}</time>
+        </p>
+        <h2 class="rail-title"><a href="{{ $second.RelPermalink }}">{{ $second.Title }}</a></h2>
+        {{ with $second.Params.dek }}<p class="rail-dek">{{ . }}</p>{{ end }}
+        <a class="rail-more" href="{{ $second.RelPermalink }}">{{ i18n "readMore" }}</a>
+      </div>
+    </article>
+    {{ end }}
+    <div class="intro-card{{ if $second }} intro-card--quiet{{ end }}">
+      <p class="eyebrow">{{ i18n "deskLabel" }}</p>
+      <p class="intro-lead">{{ i18n "homeSubLead" }}</p>
+      <p class="intro-tag">{{ i18n "tagline" }}</p>
+    </div>
+  </aside>
+</section>
+
+<section class="discover" aria-labelledby="discover-title">
+  <div class="section-head">
+    <h2 id="discover-title">{{ i18n "browseSections" }}</h2>
+  </div>
+  <div class="tiles">
+    {{ range hugo.Data.sections }}
+      {{ $id := .id }}
+      {{ $label := .label_en }}{{ if eq $lang "fr" }}{{ $label = .label_fr }}{{ end }}
+      {{ $rhythm := .rhythm_en }}{{ if eq $lang "fr" }}{{ $rhythm = .rhythm_fr }}{{ end }}
+      {{ $items := first 4 (where site.RegularPages "Section" $id).ByDate.Reverse }}
+      <a class="tile{{ if not $items }} tile--empty{{ end }}" id="{{ $id }}" href="{{ (printf "/%s/%s/" $lang $id) | relURL }}">
+        <span class="tile-media" aria-hidden="true">
+          <img src="{{ partial "motif.html" $id }}" alt="" width="640" height="400" loading="lazy" decoding="async">
+        </span>
+        <span class="tile-label">{{ $label }}</span>
+        <span class="tile-count">{{ if $items }}{{ i18n "articlesCount" (len $items) }}{{ else }}{{ i18n "emptySectionNote" }}{{ end }}</span>
+        <span class="tile-rhythm">{{ $rhythm }}</span>
+      </a>
+    {{ end }}
+  </div>
+</section>
+
+{{ $rest := after 2 $pages }}
+{{ if $rest }}
+<section class="latest" aria-labelledby="latest-title">
+  <div class="section-head">
+    <h2 id="latest-title">{{ i18n "latestStories" }}</h2>
+  </div>
+  <div class="cards">
+    {{ range $rest }}{{ partial "card.html" . }}{{ end }}
+  </div>
+</section>
+{{ end }}
+{{ end }}
