@@ -1,0 +1,36 @@
+{{ define "main" }}
+{{ $data := hugo.Data.mascots }}
+<header class="section-hero">
+  <p class="kicker"><span class="kicker-section">{{ i18n "mascotsKicker" }}</span></p>
+  <h1>{{ .Title }}</h1>
+  <div class="mascot-lead">{{ .Content }}</div>
+  <p class="rhythm"><span>{{ i18n "mascotsSource" }}</span> {{ $data.source }}</p>
+</header>
+
+{{ range slice "men" "women" }}
+{{ $group := . }}
+{{ $players := index $data $group }}
+<section class="mascot-block" aria-labelledby="mascots-{{ $group }}">
+  <div class="mascot-head">
+    <h2 id="mascots-{{ $group }}">{{ if eq $group "men" }}{{ i18n "mascotsMen" }}{{ else }}{{ i18n "mascotsWomen" }}{{ end }}</h2>
+    <span class="mascot-count">{{ i18n "mascotsCount" (len $players) }}</span>
+  </div>
+  <ul class="mascot-grid">
+    {{ range $players }}
+    <li class="mascot-card">
+      <div class="mascot-media">
+        <img src="{{ (printf "img/mascots/%s.webp" .id) | relURL }}"
+             alt="{{ i18n "mascotsAlt" (dict "name" .name) }}"
+             width="512" height="512" loading="lazy" decoding="async">
+      </div>
+      <div class="mascot-body">
+        <h3 class="mascot-name">{{ .name }}</h3>
+        <p class="mascot-team">{{ .association }}</p>
+        <span class="mascot-rank">{{ .rank }}</span>
+      </div>
+    </li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}
+{{ end }}

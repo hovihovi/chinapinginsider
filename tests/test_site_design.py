@@ -13,6 +13,7 @@ many is only exercised through a throwaway fixture site in a temp directory.
 """
 
 import http.server
+import html as html_module
 import os
 import re
 import shutil
@@ -272,6 +273,31 @@ class TestBuildContracts:
             "logo.svg",
         ]:
             assert (build_dir() / "img" / "design" / name).exists(), name
+
+    def test_mascot_gallery_covers_both_top_twenty(self):
+        roster = yaml.safe_load((SITE / "data" / "mascots.yml").read_text(encoding="utf-8"))
+        for group in ("men", "women"):
+            players = roster[group]
+            assert len(players) == 20, group
+            assert sorted(player["rank"] for player in players) == list(range(1, 21)), group
+            for player in players:
+                assert player["name"].strip() and player["association"].strip()
+                assert (build_dir() / "img" / "mascots" / f"{player['id']}.webp").exists(), player["id"]
+
+    def test_mascot_gallery_page_shows_every_player(self):
+        headings = {"en": "Men's singles, top 20", "fr": "Simple messieurs, top 20"}
+        for lang, heading in headings.items():
+            page = (build_dir() / lang / "mascots" / "index.html").read_text(encoding="utf-8")
+            assert heading in html_module.unescape(page), lang
+            assert page.count('class="mascot-card"') == 40, lang
+
+    def test_mascot_gallery_is_not_published_as_a_story(self):
+        for lang in LANGS:
+            home = (build_dir() / lang / "index.html").read_text(encoding="utf-8")
+            assert f"/{lang}/mascots/" in home, "the gallery needs a way in"
+            assert "mascot-card" not in home, "the gallery must not be listed as a story"
+            players = (build_dir() / lang / "players" / "index.html").read_text(encoding="utf-8")
+            assert "mascot-card" not in players, lang
 
 
 class TestI18n:

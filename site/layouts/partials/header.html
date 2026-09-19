@@ -33,6 +33,10 @@
           {{ if eq $current "fr" }}{{ .label_fr }}{{ else }}{{ .label_en }}{{ end }}
         </a>
       {{ end }}
+      {{ $galleryActive := and (eq $page.Section "") (eq $page.Type "mascots") }}
+      <a class="section-link{{ if $galleryActive }} is-current{{ end }}"
+         href="{{ (printf "/%s/mascots/" $current) | relURL }}"
+         {{ if $galleryActive }}aria-current="page"{{ end }}>{{ i18n "mascotsNav" }}</a>
     </div>
   </nav>
 </header>

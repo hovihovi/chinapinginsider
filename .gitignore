@@ -1,4 +1,10 @@
-__pycache__/
-*.pyc
 .DS_Store
+*.pyc
+__pycache__/
 scrapers/
+WRITING_GUIDELINES.md
+data/
+.env
+
+# Full size mascot renders: rebuilt by tools/mascot_gallery.py, the gallery ships WebP.
+site/static/img/mascots/*.png
