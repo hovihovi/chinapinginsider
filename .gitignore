@@ -8,3 +8,8 @@ data/
 
 # Full size mascot renders: rebuilt by tools/mascot_gallery.py, the gallery ships WebP.
 site/static/img/mascots/*.png
+
+# Hugo data. The section copy is rewritten by the publisher at build time, so it stays
+# out; the gallery roster is committed because the mascot page reads it directly.
+!site/data/
+site/data/sections.yml
